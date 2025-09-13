@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Day Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px;
+      color: #333;
+    }
+
+    .planner {
+      background: #fff;
+      width: 100%;
+      max-width: 500px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #4a4a4a;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .input-group input, 
+    .input-group button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 6px rgba(108, 99, 255, 0.3);
+    }
+
+    .input-group button {
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .input-group button:hover {
+      background: #574b90;
+    }
+
+    #taskList {
+      list-style: none;
+    }
+
+    #taskList li {
+      background: #f9f9f9;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    #taskList li:hover {
+      transform: translateX(5px);
+    }
+
+    .delete-btn {
+      background: #ff4b5c;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background: #d63447;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="planner">
+    <h1>Day Planner</h1>
+    <div class="input-group">
+      <input type="time" id="taskTime">
+      <input type="text" id="taskText" placeholder="Enter your task">
+      <button onclick="addTask()">Add</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      const taskTime = document.getElementById("taskTime").value;
+      const taskText = document.getElementById("taskText").value;
+      const taskList = document.getElementById("taskList");
+
+      if (!taskTime || !taskText) {
+        alert("Please enter both time and task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.innerHTML = `<span><strong>${taskTime}</strong> - ${taskText}</span>
+                      <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>`;
+      taskList.appendChild(li);
+
+      // Clear inputs
+      document.getElementById("taskTime").value = "";
+      document.getElementById("taskText").value = "";
+    }
+  </script>
+</body>
+</html>
